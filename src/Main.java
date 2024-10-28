@@ -60,7 +60,7 @@ public class Main {
             for (int j = 0; j < linha1; j++) {
                 for (int k = 0; k < coluna1; k++) {
                     tabuleiro[i][j][k] = " * ";
-                    backJogo[i][j][k] = rand.nextInt(2) - 1;  // Gera números entre -1 e 1
+                    backJogo[i][j][k] = rand.nextInt(2) - 1;  // Gera números entre -1 e 1 pode mu
                 }
             }
         }
