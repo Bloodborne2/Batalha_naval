@@ -114,7 +114,7 @@ public class Main {
         int linha, coluna, camada;
 
         while (naviosNoTabuleiro < naviosTotais) {
-            camada = rand.nextInt(3);  // Escolhe uma camada aleatória
+            camada = rand.nextInt(3);  // Escolhe uma camada aleatória sd
             if (dificuldade == 1) {
                 linha = rand.nextInt(5);
                 coluna = rand.nextInt(5);
