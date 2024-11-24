@@ -29,9 +29,15 @@ public class Main {
         backJogo = new int[tabus][linha1][coluna1];
         popularTabu(tabuleiro);
         atribuirBack(backJogo);
-        System.out.println("Cada jogador tem 10 jogadas para tentar acertar os alvos. Quem somar mais pontos no final "+ verde +"GANHA"+ resetar +".");
+        System.out.println("Cada jogador tem 10 jogadas para tentar acertar os alvos. Quem somar mais pontos no final " + verde + "GANHA" + resetar + ".");
 
-        for (int n = 0; n < 10; n++) {
+        jogarPartida(validacao);
+
+        ganhador(jogador01, jogador02);
+    }
+
+    public static void jogarPartida(int[][] validacao) {
+        for (int n = 0; n < 20; n++) {
             for (int i = 0; i < tabus; i++) {
                 System.out.println("Camada " + i + ":");
                 System.out.print("  ");
@@ -59,7 +65,7 @@ public class Main {
                 int linha = ler.nextInt();
                 int coluna = ler.nextInt();
                 if (camada >= 0 && camada < tabus && linha >= 0 && linha < linha1 && coluna >= 0 && coluna < coluna1) {
-                    if (validarVal(validacao, camada, linha, coluna )) {
+                    if (validarVal(validacao, n, camada, linha, coluna)) {
                         atribuirVal(validacao, n, camada, linha, coluna);
                         System.out.println("/////////////////////////////////////////////////////////////////////////////////////////////");
 
@@ -81,14 +87,13 @@ public class Main {
                 }
             } while (entradaValida);
         }
-        ganhador(jogador01, jogador02);
     }
 
     public static void atribuirBack(int[][][] backJogo) {
         for (int i = 0; i < tabus; i++) {
             for (int j = 0; j < linha1; j++) {
                 for (int k = 0; k < coluna1; k++) {
-                    backJogo[i][j][k] = rand.nextInt(-1, 3);
+                    backJogo[i][j][k] = rand.nextInt(-1, 3); // valores entre -1 e 2
                 }
             }
         }
@@ -124,21 +129,19 @@ public class Main {
             coluna = 10;
             tabus = 3;
         }
-        return new int[] { linha, coluna, tabus };
+        return new int[]{linha, coluna, tabus};
     }
 
     public static void jogador1(String tabuleiro[][][], int camada, int linha, int coluna) {
         tabuleiro[camada][linha][coluna] = vermelho + acerto(backJogo, camada, linha, coluna) + resetar;
-
     }
 
     public static void jogador2(String tabuleiro[][][], int camada, int linha, int coluna) {
         tabuleiro[camada][linha][coluna] = verde + acerto(backJogo, camada, linha, coluna) + resetar;
-
     }
 
-    public static boolean validarVal(int[][] validacao, int camada, int linha, int coluna) {
-        for (int i = 0; i < 20; i++) {
+    public static boolean validarVal(int[][] validacao, int n, int camada, int linha, int coluna) {
+        for (int i = 0; i < n; i++) {
             if (validacao[i][0] == camada && validacao[i][1] == linha && validacao[i][2] == coluna) {
                 return false;
             }
@@ -172,32 +175,41 @@ public class Main {
             System.out.println("Pontuação total do Jogador 1: " + jogador01);
         } else if (jogador02 > jogador01) {
             win2();
-            System.out.println("Pontuação total do Jogador 1: " + jogador02);
+            System.out.println("Pontuação total do Jogador 2: " + jogador02);
         } else {
             empate();
             System.out.println("Pontuação total do Jogador 1: " + jogador01);
             System.out.println("Pontuação total do Jogador 2: " + jogador02);
         }
     }
+
     public static void win1() {
-        System.out.println("GGGGG  AAAAA  N   N  H   H  AAAAA  DDDD    OOO   RRRR    "+vermelho+"1"+resetar+""+vermelho+"1"+resetar+"     GGGGG  AAAAA  N   N  H   H   OOO   U   U ");
-        System.out.println("G      A   A  NN  N  H   H  A   A  D   D  O   O  R   R  "+vermelho+"1"+resetar+" "+vermelho+"1"+resetar+"     G      A   A  NN  N  H   H  O   O  U   U ");
-        System.out.println("G  GG  AAAAA  N N N  HHHHH  AAAAA  D   D  O   O  RRRR     "+vermelho+"1"+resetar+"     G  GG  AAAAA  N N N  HHHHH  O   O  U   U ");
-        System.out.println("G   G  A   A  N  NN  H   H  A   A  D   D  O   0  R  R     "+vermelho+"1"+resetar+"     G   G  A   A  N  NN  H   H  O   O  U   U ");
-        System.out.println(" GGG   A   A  N   N  H   H  A   A  DDDD    OOO   R   R    "+vermelho+"1"+resetar+"      GGG   A   A  N   N  H   H   OOO   UUUUU ");
+        System.out.println("GGGGG  AAAAA  N   N  H   H  AAAAA  DDDD    OOO   RRRR    " + vermelho + "1" + resetar + "" + vermelho + "1" + resetar + "     GGGGG  AAAAA  N   N  H   H   OOO   U   U ");
+        System.out.println("G      A   A  NN  N  H   H  A   A  D   D  O   O  R   R  " + vermelho + "1" + resetar + " " + vermelho + "1" + resetar + "     G      A   A  NN  N  H   H  O   O  U   U ");
+        System.out.println("G  GG  AAAAA  N N N  HHHHH  AAAAA  D   D  O   O  RRRR     " + vermelho + "1" + resetar + "     G  GG  AAAAA  N N N  HHHHH  O   O  U   U ");
+        System.out.println("G   G  A   A  N  NN  H   H  A   A  D   D  O   0  R  R     " + vermelho + "1" + resetar + "     G   G  A   A  N  NN  H   H  O   O  U   U ");
+        System.out.println(" GGG   A   A  N   N  H   H  A   A  DDDD    OOO   R   R    " + vermelho + "1" + resetar + "      GGG   A   A  N   N  H   H   OOO   UUUUU ");
     }
+
     public static void win2() {
-        System.out.println(" JJJJJ   OOO   GGGGG  AAAAA  DDDD    OOO   RRRR    "+verde+"  22222 "+resetar+"       GGGGG  AAAAA  N   N  H   H   OOO   U   U   !");
-        System.out.println("  J     O   O  G      A   A  D   D  O   O  R   R   "+verde+" 2     2 "+resetar+"      G      A   A  NN  N  H   H  O   O  U   U   !");
-        System.out.println("   J    O   O  G  GG  AAAAA  D   D  O   O  RRRR     "+verde+"    22 "+resetar+"       G  GG  AAAAA  N N N  HHHHH  O   O  U   U   !");
-        System.out.println(" J  J   O   O  G   G  A   A  D   D  O   O  R  R      "+verde+"  22   "+resetar+"      G   G  A   A  N  NN  H   H  O   O  U   U   !");
-        System.out.println("  JJJ    OOO    GGG   A   A  DDDD    OOO   R   R     "+verde+"222222  "+resetar+"      GGG   A   A  N   N  H   H   OOO   UUUUU   0");
+        System.out.println(" JJJJJ   OOO   GGGGG  AAAAA  DDDD    OOO   RRRR    " + verde + " 22222 " + resetar + "       GGGGG  AAAAA  N   N  H   H   OOO   U   U   !");
+        System.out.println("  J     O   O  G      A   A  D   D  O   O  R   R   " + verde + " 2     2 " + resetar + "      G      A   A  NN  N  H   H  O   O  U   U   !");
+        System.out.println("   J    O   O  G  GG  AAAAA  D   D  O   O  RRRR     " + verde + "    22 " + resetar + "       G  GG  AAAAA  N N N  HHHHH  O   O  U   U   !");
+        System.out.println(" J  J   O   O  G   G  A   A  D   D  O   O  R  R      " + verde + "  22   " + resetar + "      G   G  A   A  N  NN  H   H  O   O  U   U   !");
+        System.out.println("  JJJ    OOO    GGG   A   A  DDDD    OOO   R   R     " + verde + "222222  " + resetar + "      GGG   A   A  N   N  H   H   OOO   UUUUU   0");
     }
+
     public static void empate() {
         System.out.println(" EEEEE  M   M  PPPP   AAAAA  TTTTT  EEEEE ");
         System.out.println(" E      MM MM  P   P  A   A    T    E     ");
         System.out.println(" EEEE   M M M  PPPP   AAAAA    T    EEEE  ");
         System.out.println(" E      M   M  P      A   A    T    E     ");
         System.out.println(" EEEEE  M   M  P      A   A    T    EEEEE ");
+    }
+
+    public static void pontos() {
+        System.out.println();
+        System.out.printf("%-30s: %2d%n", "Total de pontos do jogador 1", jogador01);
+        System.out.printf("%-30s: %2d%n", "Total de pontos do jogador 2", jogador02);
     }
 }
