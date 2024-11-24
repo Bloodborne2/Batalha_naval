@@ -32,7 +32,22 @@ public class Main {
         System.out.println("Cada jogador tem 10 jogadas para tentar acertar os alvos. Quem somar mais pontos no final "+ verde +"GANHA"+ resetar +".");
 
         for (int n = 0; n < 10; n++) {
-            exibirTabuleiros(tabuleiro, tabus, linha1, coluna1);
+            for (int i = 0; i < tabus; i++) {
+                System.out.println("Camada " + i + ":");
+                System.out.print("  ");
+                for (int k = 0; k < coluna1; k++) {
+                    System.out.print(" " + k + " ");
+                }
+                System.out.println();
+                for (int j = 0; j < linha1; j++) {
+                    System.out.print(j + " ");
+                    for (int k = 0; k < coluna1; k++) {
+                        System.out.print(tabuleiro[i][j][k]);
+                    }
+                    System.out.println();
+                }
+                System.out.println();
+            }
 
             System.out.println("Escolha a camada de 0 a " + (tabus - 1) + ":\nUma linha e uma coluna de 0 a "
                     + (linha1 - 1) + " para atacar:");
@@ -69,24 +84,6 @@ public class Main {
         ganhador(jogador01, jogador02);
     }
 
-    public static void exibirTabuleiros(String[][][] tabuleiro, int tabus, int linha1, int coluna1) {
-        for (int i = 0; i < tabus; i++) {
-            System.out.println("Camada " + i + ":");
-            System.out.print("  ");
-            for (int k = 0; k < coluna1; k++) {
-                System.out.print(" " + k + " ");
-            }
-            System.out.println();
-            for (int j = 0; j < linha1; j++) {
-                System.out.print(j + " ");
-                for (int k = 0; k < coluna1; k++) {
-                    System.out.print(tabuleiro[i][j][k]);
-                }
-                System.out.println();
-            }
-            System.out.println();
-        }
-    }
     public static void atribuirBack(int[][][] backJogo) {
         for (int i = 0; i < tabus; i++) {
             for (int j = 0; j < linha1; j++) {
@@ -175,7 +172,7 @@ public class Main {
             System.out.println("Pontuação total do Jogador 1: " + jogador01);
         } else if (jogador02 > jogador01) {
             win2();
-            System.out.println("Pontuação total do Jogador 2: " + jogador02);
+            System.out.println("Pontuação total do Jogador 1: " + jogador02);
         } else {
             empate();
             System.out.println("Pontuação total do Jogador 1: " + jogador01);
