@@ -2,6 +2,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+
     static Random rand = new Random();
     static Scanner ler = new Scanner(System.in);
     public static final String resetar = "\u001B[0m";
@@ -20,6 +21,7 @@ public class Main {
     public static void main(String[] args) {
         menuDificuldade();
         int[][] validacao = new int[20][3];
+        String[] posi = {"aéreo   0","maritmo   1","Submerso   2"};
 
         dimensoes = difi(dificuldade);
         linha1 = dimensoes[0];
@@ -31,15 +33,11 @@ public class Main {
         atribuirBack(backJogo);
         System.out.println("Cada jogador tem 10 jogadas para tentar acertar os alvos. Quem somar mais pontos no final " + verde + "GANHA" + resetar + ".");
 
-        jogarPartida(validacao);
+        for (int n = 0; n < 20 ; n++) {
 
-        ganhador(jogador01, jogador02);
-    }
 
-    public static void jogarPartida(int[][] validacao) {
-        for (int n = 0; n < 20; n++) {
             for (int i = 0; i < tabus; i++) {
-                System.out.println("Camada " + i + ":");
+                System.out.println(posi[i]);
                 System.out.print("  ");
                 for (int k = 0; k < coluna1; k++) {
                     System.out.print(" " + k + " ");
@@ -54,6 +52,7 @@ public class Main {
                 }
                 System.out.println();
             }
+            pontos();
 
             System.out.println("Escolha a camada de 0 a " + (tabus - 1) + ":\nUma linha e uma coluna de 0 a "
                     + (linha1 - 1) + " para atacar:");
@@ -61,13 +60,20 @@ public class Main {
             boolean entradaValida;
             do {
                 entradaValida = false;
+                System.out.println("camada:\n");
                 int camada = ler.nextInt();
+                System.out.println("linha:\n");
                 int linha = ler.nextInt();
+                System.out.println("coluna:\n");
                 int coluna = ler.nextInt();
                 if (camada >= 0 && camada < tabus && linha >= 0 && linha < linha1 && coluna >= 0 && coluna < coluna1) {
                     if (validarVal(validacao, n, camada, linha, coluna)) {
                         atribuirVal(validacao, n, camada, linha, coluna);
                         System.out.println("/////////////////////////////////////////////////////////////////////////////////////////////");
+                        System.out.println("/////////////////////////////////////////////////////////////////////////////////////////////");
+                        System.out.println("/////////////////////////////////////////////////////////////////////////////////////////////");
+                        System.out.println("/////////////////////////////////////////////////////////////////////////////////////////////");
+
 
                         if (n % 2 == 0) {
                             jogador1(tabuleiro, camada, linha, coluna);
@@ -87,13 +93,14 @@ public class Main {
                 }
             } while (entradaValida);
         }
+        ganhador(jogador01, jogador02);
     }
 
     public static void atribuirBack(int[][][] backJogo) {
         for (int i = 0; i < tabus; i++) {
             for (int j = 0; j < linha1; j++) {
                 for (int k = 0; k < coluna1; k++) {
-                    backJogo[i][j][k] = rand.nextInt(-1, 3); // valores entre -1 e 2
+                    backJogo[i][j][k] = rand.nextInt(-1, 3);
                 }
             }
         }
@@ -172,29 +179,28 @@ public class Main {
     public static void ganhador(int jogador01, int jogador02) {
         if (jogador01 > jogador02) {
             win1();
-            System.out.println("Pontuação total do Jogador 1: " + jogador01);
+
         } else if (jogador02 > jogador01) {
             win2();
-            System.out.println("Pontuação total do Jogador 2: " + jogador02);
+
         } else {
             empate();
-            System.out.println("Pontuação total do Jogador 1: " + jogador01);
-            System.out.println("Pontuação total do Jogador 2: " + jogador02);
+
         }
     }
 
     public static void win1() {
-        System.out.println("GGGGG  AAAAA  N   N  H   H  AAAAA  DDDD    OOO   RRRR    " + vermelho + "1" + resetar + "" + vermelho + "1" + resetar + "     GGGGG  AAAAA  N   N  H   H   OOO   U   U ");
-        System.out.println("G      A   A  NN  N  H   H  A   A  D   D  O   O  R   R  " + vermelho + "1" + resetar + " " + vermelho + "1" + resetar + "     G      A   A  NN  N  H   H  O   O  U   U ");
-        System.out.println("G  GG  AAAAA  N N N  HHHHH  AAAAA  D   D  O   O  RRRR     " + vermelho + "1" + resetar + "     G  GG  AAAAA  N N N  HHHHH  O   O  U   U ");
-        System.out.println("G   G  A   A  N  NN  H   H  A   A  D   D  O   0  R  R     " + vermelho + "1" + resetar + "     G   G  A   A  N  NN  H   H  O   O  U   U ");
-        System.out.println(" GGG   A   A  N   N  H   H  A   A  DDDD    OOO   R   R    " + vermelho + "1" + resetar + "      GGG   A   A  N   N  H   H   OOO   UUUUU ");
+        System.out.println(" JJJJJ    OOO   GGGGG  AAAAA  DDDD    OOO   RRRR     " + vermelho + "1" + resetar + "" + vermelho + "1" + resetar + "     GGGGG  AAAAA  N   N  H   H   OOO   U   U ");
+        System.out.println("    J    O   O  G      A   A  D   D  O   O  R   R   " + vermelho + "1" + resetar + " " + vermelho + "1" + resetar + "     G      A   A  NN  N  H   H  O   O  U   U ");
+        System.out.println("     J   O   O  G      AAAAA  D   D  O   O  R   R     " + vermelho + "1" + resetar + "     G  GG  AAAAA  N N N  HHHHH  O   O  U   U ");
+        System.out.println("  J  J   O   O  G   G  A   A  D   D  O   O  R  R      " + vermelho + "1" + resetar + "     G   G  A   A  N  NN  H   H  O   O  U   U ");
+        System.out.println("   JJJ    OOO    GGG   A   A  DDDD    OOO   R   R     " + vermelho + "1" + resetar + "      GGG   A   A  N   N  H   H   OOO   UUUUU ");
     }
 
     public static void win2() {
-        System.out.println(" JJJJJ   OOO   GGGGG  AAAAA  DDDD    OOO   RRRR    " + verde + " 22222 " + resetar + "       GGGGG  AAAAA  N   N  H   H   OOO   U   U   !");
-        System.out.println("  J     O   O  G      A   A  D   D  O   O  R   R   " + verde + " 2     2 " + resetar + "      G      A   A  NN  N  H   H  O   O  U   U   !");
-        System.out.println("   J    O   O  G  GG  AAAAA  D   D  O   O  RRRR     " + verde + "    22 " + resetar + "       G  GG  AAAAA  N N N  HHHHH  O   O  U   U   !");
+        System.out.println(" JJJJJ   OOO   GGGGG  AAAAA  DDDD    OOO   RRRR     " + verde + " 22222 " + resetar + "       GGGGG  AAAAA  N   N  H   H   OOO   U   U   !");
+        System.out.println("   J    O   O  G      A   A  D   D  O   O  R   R   " + verde + " 2     2 " + resetar + "      G      A   A  NN  N  H   H  O   O  U   U   !");
+        System.out.println("    J   O   O  G      AAAAA  D   D  O   O  R   R     " + verde + "    22 " + resetar + "      G  GG  AAAAA  N N N  HHHHH  O   O  U   U   !");
         System.out.println(" J  J   O   O  G   G  A   A  D   D  O   O  R  R      " + verde + "  22   " + resetar + "      G   G  A   A  N  NN  H   H  O   O  U   U   !");
         System.out.println("  JJJ    OOO    GGG   A   A  DDDD    OOO   R   R     " + verde + "222222  " + resetar + "      GGG   A   A  N   N  H   H   OOO   UUUUU   0");
     }
@@ -209,7 +215,7 @@ public class Main {
 
     public static void pontos() {
         System.out.println();
-        System.out.printf("%-30s: %2d%n", "Total de pontos do jogador 1", jogador01);
-        System.out.printf("%-30s: %2d%n", "Total de pontos do jogador 2", jogador02);
+        System.out.printf("%-30s: %2d%n", "Total de pontos do "+vermelho+"jogador 1"+resetar, jogador01);
+        System.out.printf("%-30s: %2d%n", "Total de pontos do "+verde+"jogador 2"+resetar, jogador02);
     }
 }
